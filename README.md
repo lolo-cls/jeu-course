@@ -25,5 +25,5 @@ Le joueur doit conduire une voiture sur un circuit et terminer plusieurs tours e
 
 ## Équipe
 
-* [Prénom 1]
-* [Prénom 2]
+* Laura
+* Diana
