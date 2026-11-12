@@ -125,6 +125,36 @@ def creer_ia(pilote_humain, voiture_humaine):
     ]
 
     marque, vitesse, acceleration = random.choice(voitures_restantes)
+
+    # Modification des performances selon la difficulté
+    if difficulte == "Facile":
+        vitesse = vitesse * 0.80
+        acceleration = acceleration * 0.80
+
+    elif difficulte == "Moyen":
+        vitesse = vitesse * 0.90
+        acceleration = acceleration * 0.90
+
+    elif difficulte == "Difficile":
+        vitesse = vitesse * 1.10
+        acceleration = acceleration * 1.10
+
+    voiture_ia = Voiture(marque, vitesse, acceleration)
+
+    pilote_ia.choisir_voiture(voiture_ia)
+
+    return pilote_ia
+
+
+    nom, niveau = random.choice(pilotes_restants)
+    pilote_ia = Pilote(nom, niveau)
+
+    voitures_restantes = [
+        voiture for voiture in VOITURES_DISPONIBLES
+        if voiture[0] != voiture_humaine.marque
+    ]
+
+    marque, vitesse, acceleration = random.choice(voitures_restantes)
     voiture_ia = Voiture(marque, vitesse, acceleration)
 
     pilote_ia.choisir_voiture(voiture_ia)
@@ -148,6 +178,21 @@ def afficher_recapitulatif(circuit, pilotes, mode):
         print(f"Vitesse maximale : {pilote.voiture.vitesse_max}")
         print(f"Accélération : {pilote.voiture.acceleration}")
 
+def choisir_difficulte():
+    print("\n=== DIFFICULTÉ DE L'IA ===")
+    print("1. Facile")
+    print("2. Moyen")
+    print("3. Difficile")
+
+    choix = demander_choix("Choisissez la difficulté : ", 1, 3)
+
+    difficultes = {
+        1: "Facile",
+        2: "Moyen",
+        3: "Difficile"
+    }
+
+    return difficultes[choix]
 
 def main():
     print("================================")
@@ -163,21 +208,44 @@ def main():
     pilotes = [pilote_1]
 
     if mode == 2:
-        pilote_2 = choisir_pilote("Joueur 2")
-        voiture_2 = choisir_voiture("Joueur 2")
-        pilote_2.choisir_voiture(voiture_2)
-        pilotes.append(pilote_2)
-    else:
-        pilote_ia = creer_ia(pilote_1, voiture_1)
-        pilotes.append(pilote_ia)
+    pilote_2 = choisir_pilote("Joueur 2")
+    voiture_2 = choisir_voiture("Joueur 2")
+    pilote_2.choisir_voiture(voiture_2)
+    pilotes.append(pilote_2)
+else:
+difficulte = choisir_difficulte()
+print(f"\nDifficulté choisie : {difficulte}")
+
+pilote_ia = creer_ia(pilote_1, voiture_1, difficulte)
+PILOTES_DISPONIBLES.append(pilote_ia)
+
+def choisir_difficulte():
+    print("\n=== DIFFICULTÉ DE L'IA ===")
+    print("1. Facile")
+    print("2. Moyen")
+    print("3. Difficile")
+
+    choix = demander_choix("Choisissez la difficulté : ", 1, 3)
+
+    difficultes = {
+        1: "Facile",
+        2: "Moyen",
+        3: "Difficile"
+    }
+
+    return difficultes[choix]
 
     circuit = choisir_circuit()
+
+
 
     afficher_recapitulatif(circuit, pilotes,mode)
 
     confirmation = input("\nAppuyez sur Entrée pour lancer la course...")
     course = Course(circuit, pilotes)
     course.lancer()
+
+
 
 
 if __name__ == "__main__":

@@ -10,10 +10,10 @@ class Voiture:
         if self.vitesse > self.vitesse_max:
             self.vitesse = self.vitesse_max
 
-    def freiner(self):
-        self.vitesse -= 10
-        if self.vitesse < 0:
-            self.vitesse = 0
+   def freiner(self, freinage=10):
+    self.vitesse -= freinage
+    if self.vitesse < 0:
+        self.vitesse = 0 
 
 pilote_1 = Voiture("Ferrari",320,25)
 pilote_2 = Voiture("Mercedes",300,30)
