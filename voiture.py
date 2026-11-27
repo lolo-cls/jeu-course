@@ -56,3 +56,4 @@ class Voiture:
         )
 
         fenetre.blit(voiture_tournee, rectangle)
+
